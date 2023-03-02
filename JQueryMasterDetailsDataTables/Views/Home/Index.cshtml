@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "~/Views/Home/MasterDetailsLayoutPage.cshtml";
+}
+
+
+@section onReady{
+
+    var oTable;
+    $('#companies tbody td img').click(function () {
+        var nTr = this.parentNode.parentNode;
+        if (this.src.match('details_close')) {
+            /* This row is already open - close it */
+            this.src = "/Content/images/details_open.png";
+            oTable.fnClose(nTr);
+        }
+        else {
+            /* Open this row */
+            this.src = "/Content/images/details_close.png";
+            var companyid = $(this).attr("rel");
+            $.get("CompanyEmployees?CompanyID=" + companyid, function (employees) {
+                oTable.fnOpen(nTr, employees, 'details');
+            });
+        }
+    });
+
+        /* Initialize table and make first column non-sortable*/
+   oTable = $('#companies').dataTable({  "bJQueryUI": true,
+                                         "aoColumns": [
+			                                { "bSortable": false, "bSearchable": false },
+			                                null,
+			                                null,
+			                                null
+		                            ]
+        });
+
+}
+
+    <div id="demo">
+        <table id="companies" class="display">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Company name</th>
+                    <th>Address</th>
+                    <th>Town</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="/Content/images/details_open.png" rel="0" alt="expand/collapse"></td>
+                    <td>Emkay Entertainments</td>
+                    <td>Nobel House, Regent Centre</td>
+                    <td>Lothian</td>
+                </tr>
+                <tr>
+                    <td><img src="/Content/images/details_open.png" rel="0" alt="expand/collapse"></td>
+                    <td>The Empire</td>
+                    <td>Milton Keynes Leisure Plaza</td>
+                    <td>Buckinghamshire</td>
+                </tr>
+                <tr>
+                    <td><img src="/Content/images/details_open.png" rel="2" alt="expand/collapse"></td>
+                    <td>Asadul Ltd</td>
+                    <td>Hophouse</td>
+                    <td>Essex</td>
+                </tr>
+                <tr>
+                    <td><img src="/Content/images/details_open.png" rel="3" alt="expand/collapse"></td>
+                    <td>Ashley Mark Publishing Company</td>
+                    <td>1-2 Vance Court</td>
+                    <td>Tyne &amp; Wear</td>
+                </tr>
+                <tr>
+                    <td><img src="/Content/images/details_open.png" rel="4" alt="expand/collapse"></td>
+                    <td>MuchMoreMusic Studios</td>
+                    <td>Unit 29</td>
+                    <td>London</td>
+                </tr>
+                <tr>
+                    <td><img src="/Content/images/details_open.png" rel="5" alt="expand/collapse"></td>
+                    <td>Audio Records Studios</td>
+                    <td>Oxford Street</td>
+                    <td>London</td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>

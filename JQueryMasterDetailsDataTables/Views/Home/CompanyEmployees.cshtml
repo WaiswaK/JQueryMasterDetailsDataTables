@@ -1,0 +1,19 @@
+﻿@model IEnumerable<JQueryDataTables.Models.Employee>
+
+<table cellpadding="4" cellspacing="0" border="0" style="padding-left:50px;">
+    <tr>
+        <th>Employee</th>
+        <th>Position</th>
+        <th>Phone</th>
+        <th>Email</th>
+    </tr>
+@foreach (var item in Model) {
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Position</td>
+        <td>@item.Phone</td>
+        <td>@item.Email</td>
+    </tr>
+}
+</table>
+
